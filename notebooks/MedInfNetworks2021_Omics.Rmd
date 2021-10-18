@@ -9,6 +9,10 @@ editor_options:
     wrap: 80
 ---
 
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
 ## Download and explore data from GEO - Gene Expression Omnibus
 
 ## Note
@@ -100,6 +104,11 @@ We choose the `GEO accession number` of one subserie. For instance, we choose
 lapatinib (GSE116445).
 
 We use the following command line to download the data
+
+```{r message=FALSE, warning=FALSE, include=FALSE}
+Sys.setenv("VROOM_CONNECTION_SIZE" = 1.5 * 1024^2)
+```
+
 
 ```{r pressure, cache=TRUE, results=F, message=F}
 
