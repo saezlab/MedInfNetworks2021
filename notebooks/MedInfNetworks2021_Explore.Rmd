@@ -1,0 +1,87 @@
+---
+title: "MedInfNetworks Explore"
+output:
+  html_document:
+    toc: yes
+    toc_float: yes
+editor_options: 
+  markdown: 
+    wrap: 80
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## Overview
+
+Follow the first part of
+"[transcriptutorial](https://github.com/saezlab/transcriptutorial/)" to get
+acquainted with the basics of data preprocessing, exploration and analysis with
+footprint based methods.
+
+## 1) Normalization and variance stabilization
+
+Log transformation and variance stabilizing normalization with
+[vsn](https://bioconductor.org/packages/vsn/).
+
+See also the paper
+
+```{r}
+citation("vsn")
+```
+
+**Follow step 1**
+<https://github.com/saezlab/transcriptutorial/blob/master/scripts/01_normalisation.md>
+
+*Discussion: Other approaches to normalization and variance stabilization.*
+
+## 2) Differential expression analysis
+
+Differential expression analysis with
+[limma](https://bioconductor.org/packages/limma/).
+
+Consider skimming the
+[userguide](https://bioconductor.org/packages/release/bioc/vignettes/limma/inst/doc/usersguide.pdf).
+See also the paper
+
+```{r}
+citation("limma")
+```
+
+**Follow step 2**
+<https://github.com/saezlab/transcriptutorial/blob/master/scripts/02_differential_analysis.md>
+
+*Discussion: Assumptions of underlying distribution. Other approaches to
+differential expression analysis.*
+
+*(optional)* More on this topic [RNA-seq analysis is easy as 1-2-3 with limma,
+Glimma and edge](https://f1000research.com/articles/5-1408)
+
+## 3) Footprint based analyses
+
+What is a footprint?
+
+### PROGENy
+
+See also the paper(s)
+
+```{r}
+citation("progeny")
+```
+
+**Follow step 3**
+<https://github.com/saezlab/transcriptutorial/blob/master/scripts/03_Pathway_activity_with_Progeny.md>
+
+### DoRothEA
+
+See also the paper(s)
+
+```{r}
+citation("dorothea")
+```
+
+**Follow step 4**
+<https://github.com/saezlab/transcriptutorial/blob/master/scripts/04_TranscriptionFactor_activity_with_Dorothea.md>
+
+*Discussion: [decoupleR](https://saezlab.github.io/decoupleR/)*
