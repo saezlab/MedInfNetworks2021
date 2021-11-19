@@ -1,0 +1,25 @@
+---
+title: "MedInfNetworks Networks"
+output:
+  html_document:
+    toc: yes
+    toc_float: yes
+editor_options: 
+  markdown: 
+    wrap: 80
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## Overview
+
+In preparation for this weeks practical please make sure you have the packages `CARNIVAL` and `cosmosR` from Bioconductor installed. 
+
+```{r echo=TRUE, eval=FALSE}
+BiocManager::install(c("CARNIVAL", "cosmosR"))
+```
+
+
+Please also install the IBM ILOG CPLEX solver, available through the Academic Initiative from [here](https://www.ibm.com/products/ilog-cplex-optimization-studio).
