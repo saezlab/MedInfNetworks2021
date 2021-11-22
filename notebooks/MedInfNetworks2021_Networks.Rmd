@@ -15,11 +15,90 @@ knitr::opts_chunk$set(echo = TRUE)
 
 ## Overview
 
-In preparation for this weeks practical please make sure you have the packages `CARNIVAL` and `cosmosR` from Bioconductor installed. 
+Please make sure you have the packages `CARNIVAL` (version 1.x.x and not 2.x.x) and `cosmosR` from Bioconductor installed. If you are using the Docker image, you will need to downgrade carnival to version 1.x.x.
 
 ```{r echo=TRUE, eval=FALSE}
-BiocManager::install(c("CARNIVAL", "cosmosR"))
+BiocManager::install("cosmosR")
+remotes::install_github("saezlab/CARNIVAL@v1.3")
+```
+
+This is a good time to go over the [previous practical](MedInfNetworks2021_Explore.Rmd) again to refresh your understanding of footprint based methods and the inputs that will be used for the network reconstruction methods that you will work with in this practical.
+
+
+## 1) CARNIVAL
+
+We proceed by contextualizing the estimations from the previous practicle in a causal network, combing prior knowledge networks and available data.
+
+**Follow step 5**
+
+<https://github.com/saezlab/transcriptutorial/blob/master/scripts/05_network_reconstruction_with_CARNIVAL.md>
+
+To further analyse the results of running CARNIVAL
+
+**Follow step 6**
+
+<https://github.com/saezlab/transcriptutorial/blob/master/scripts/06_analysis_CARNIVAL_results.md>
+
+If you are having troubles installing/downgrading `CARNIVAL` 1.x.x, with version 2.x.x. you can follow the `CARNIVAL` tutorial and run the toy examples 
+
+<https://saezlab.github.io/CARNIVAL/articles/CARNIVAL.html>
+
+
+```{r include=FALSE}
+library(CARNIVAL)
+load(file = system.file("toy_perturbations_ex1.RData",
+                        package = "CARNIVAL"))
+load(file = system.file("toy_measurements_ex1.RData",
+                        package = "CARNIVAL"))
+load(file = system.file("toy_network_ex1.RData",
+                        package = "CARNIVAL"))
+
+carnivalOptions <- defaultLpSolveCarnivalOptions()
+
+# lpSolveresults
+resultsLpSolve <- runVanillaCarnival( perturbations = toy_perturbations_ex1, 
+                                      measurements = toy_measurements_ex1,
+                                      priorKnowledgeNetwork = toy_network_ex1, 
+                                      carnivalOptions = carnivalOptions)
 ```
 
 
-Please also install the IBM ILOG CPLEX solver, available through the Academic Initiative from [here](https://www.ibm.com/products/ilog-cplex-optimization-studio).
+Here is also a small script for visualizing the `CARNIVAL` outputs based on `visNetwork`.
+
+
+```{r message=FALSE, warning=FALSE}
+library(dplyr)
+library(visNetwork)
+
+resultsLpSolve
+
+nodes <- data.frame(id = resultsLpSolve$nodesAttributes$Node, 
+                    label = resultsLpSolve$nodesAttributes$Node, 
+                    title = resultsLpSolve$nodesAttributes$nodesType)
+
+edges <- resultsLpSolve$weightedSIF %>% 
+  transmute(from = Node1, 
+            to = Node2, 
+            color = ifelse(Sign == 1, "blue", "red"), 
+            value = Weight,
+            arrows = "to")
+
+visNetwork(nodes, edges)
+
+```
+
+
+## 2) COSMOS
+
+COSMOS extends the anlaysis that can be performed with CARNIVAL and allows for integration of multiple modalities of measured data and not only transcriptomics.
+
+Follow the cosmosR tutorial and run the toy example
+
+<https://saezlab.github.io/cosmosR/articles/tutorial.html>
+
+For more information see also the paper
+
+```{r}
+citation("cosmosR")
+```
+
